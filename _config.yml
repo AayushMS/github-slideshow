@@ -21,6 +21,12 @@ title:       github-slideshow
 author:      GitHubTeacher
 description: A fun activity for learning Git and GitHub.
 
+## Multiplex remote control session
+## Allows a presenter to control slide navigation for all connected viewers.
+## Set a unique id for your session. Viewers connect to the same page.
+## Presenter adds ?master=<secret> to the URL to gain control.
+multiplex_id: PNt5c
+
 sass:
   style:     :compressed
 

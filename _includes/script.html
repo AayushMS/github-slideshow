@@ -1,16 +1,43 @@
 <script src="{{ site.baseurl }}/node_modules/reveal.js/js/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 
 		<script>
 			// More info about config & dependencies:
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
+			//
+			// Multiplex remote control setup:
+			// - Master (presenter): load this page with ?master query param
+			//   The master page sends slide change events to all connected clients.
+			// - Client (audience): load the page normally
+			//   Client pages follow the master's navigation automatically.
+			var defined_multiplex_secret = null;
+			var defined_multiplex_url = 'https://reveal-js-multiplex-ccjbegmaii.now.sh';
+			var defined_multiplex_id = '{{ site.multiplex_id | default: "PNt5c" }}';
+
+			// Allow presenter mode via ?master=<secret> query parameter
+			var urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.has('master')) {
+				defined_multiplex_secret = urlParams.get('master');
+			}
+
+			var multiplex_plugin = defined_multiplex_secret
+				? { src: 'node_modules/reveal.js/plugin/multiplex/master.js', async: true }
+				: { src: 'node_modules/reveal.js/plugin/multiplex/client.js', async: true };
+
 			Reveal.initialize({
 				hash: true,
+				multiplex: {
+					secret: defined_multiplex_secret,
+					id: defined_multiplex_id,
+					url: defined_multiplex_url
+				},
 				dependencies: [
 					{ src: 'node_modules/reveal.js/plugin/markdown/marked.js' },
 					{ src: 'node_modules/reveal.js/plugin/markdown/markdown.js' },
 					{ src: 'node_modules/reveal.js/plugin/highlight/highlight.js' },
-					{ src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true }
+					{ src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true },
+					multiplex_plugin
 				]
 			});
 		</script>
