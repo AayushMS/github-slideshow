@@ -1,4 +1,5 @@
 <script src="{{ site.baseurl }}/node_modules/reveal.js/js/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
 
 		<script>
 			// More info about config & dependencies:
@@ -6,11 +7,24 @@
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
 				hash: true,
+
+				// Multiplex remote control configuration
+				// Master (controller) sends slide changes to connected clients
+				// Client URL (no secret): share this with your audience
+				// Master URL (with secret): use this to control the presentation
+				multiplex: {
+					secret: '17734899881242781053',
+					id: '608d5e65fb9aea32',
+					url: 'https://reveal-multiplex.glitch.me'
+				},
+
 				dependencies: [
 					{ src: 'node_modules/reveal.js/plugin/markdown/marked.js' },
 					{ src: 'node_modules/reveal.js/plugin/markdown/markdown.js' },
 					{ src: 'node_modules/reveal.js/plugin/highlight/highlight.js' },
-					{ src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true }
+					{ src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true },
+					{ src: 'node_modules/reveal.js/plugin/multiplex/master.js', async: true },
+					{ src: 'node_modules/reveal.js/plugin/multiplex/client.js', async: true }
 				]
 			});
 		</script>

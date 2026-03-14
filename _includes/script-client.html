@@ -1,0 +1,24 @@
+<script src="{{ site.baseurl }}/node_modules/reveal.js/js/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+
+		<script>
+			// Client-only configuration (no secret = receive only)
+			// Open this on your laptop to have it controlled remotely
+			Reveal.initialize({
+				hash: true,
+
+				multiplex: {
+					secret: null,
+					id: '608d5e65fb9aea32',
+					url: 'https://reveal-multiplex.glitch.me'
+				},
+
+				dependencies: [
+					{ src: 'node_modules/reveal.js/plugin/markdown/marked.js' },
+					{ src: 'node_modules/reveal.js/plugin/markdown/markdown.js' },
+					{ src: 'node_modules/reveal.js/plugin/highlight/highlight.js' },
+					{ src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true },
+					{ src: 'node_modules/reveal.js/plugin/multiplex/client.js', async: true }
+				]
+			});
+		</script>
